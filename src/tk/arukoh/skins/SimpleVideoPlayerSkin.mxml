@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
+			 xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+			 minWidth="512" minHeight="256">
+
+	<fx:Metadata>
+        [HostComponent("tk.arukoh.media.SimpleVideoPlayer")]
+    </fx:Metadata>
+
+	<s:states>
+		<s:State name="normal" />
+	</s:states>
+	
+	<s:Image id="display" width="100%" height="100%" backgroundColor="0x000000" />
+	
+	<!-- video player controls -->
+	<s:Group left="0" right="0" height="24" bottom="0">
+		<s:Group bottom="0" horizontalCenter="0" left="0" right="0" id="playerControls">
+			
+			<s:Rect width="100%" height="100%">
+				<s:fill><s:SolidColor color="0xFFFFFF" /></s:fill>
+			</s:Rect>
+			
+			<!--- @copy spark.components.VideoPlayer#playPauseButton -->
+			<s:ToggleButton id="playPauseButton"
+					left="0" bottom="0"
+					skinClass="spark.skins.spark.mediaClasses.normal.PlayPauseButtonSkin"
+					layoutDirection="ltr"
+					focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
+			
+			<!-- scrubbar + the currentTime/duration labels -->
+			<s:Group left="39" right="{repeatButton.width + volumeBar.width}" top="0" bottom="0">
+				<!-- background for scrubbar + the currentTime/duration -->
+				<s:Rect left="0" right="0" top="0" bottom="0">
+					<s:fill>
+						<s:LinearGradient rotation="90">
+							<s:GradientEntry color="0xFFFFFF" />
+						</s:LinearGradient>
+					</s:fill>
+				</s:Rect>
+				<!-- one pixel border -->
+				<s:Rect left="1" right="1" top="1" bottom="1">
+					<s:stroke>
+						<s:LinearGradientStroke weight="1" rotation="90">
+							<s:GradientEntry color="0xFEFEFE" />
+						</s:LinearGradientStroke>
+					</s:stroke>
+				</s:Rect>
+				<!-- border for the scrubbar/time label controls -->
+				<s:Rect left="-1" right="0" top="0" bottom="0">
+					<s:stroke>
+						<s:SolidColorStroke color="0x131313" />
+					</s:stroke>
+				</s:Rect>
+				<!-- scrub bar + currentTime/duration in a HorizontalLayout -->
+				<s:Group left="0" right="0" height="23" bottom="0">
+					<s:layout>
+						<s:HorizontalLayout verticalAlign="middle" gap="1" />
+					</s:layout>
+					<!-- spacer -->
+					<s:Rect width="7" height="1" />
+					<s:ScrubBar id="scrubBar" width="100%" liveDragging="true"
+						skinClass="spark.skins.spark.mediaClasses.normal.ScrubBarSkin" />
+					<!-- spacer -->
+					<s:Rect width="8" height="1" />
+					<s:Label id="currentTimeDisplay" />
+					<s:Label id="timeDivider" text="/" />
+					<s:Label id="durationDisplay" />
+					<!-- spacer -->
+					<s:Rect width="8" height="1" />
+				</s:Group>
+			</s:Group>
+			
+			<s:ToggleButton id="repeatButton" selected="true"
+					right="{volumeBar.width}" top="0" bottom="0"  height="{playPauseButton.height}"
+					layoutDirection="ltr"
+					focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
+			
+			<!--- @copy spark.components.VideoPlayer#volumeBar -->
+			<s:VolumeBar id="volumeBar"
+					maximum="1" snapInterval=".01" stepSize=".01" liveDragging="true"
+					right="0" bottom="0" height="{playPauseButton.height}"
+					layoutDirection="ltr"
+					skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarSkin"
+					focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
+		</s:Group>
+	</s:Group>
+
+</s:SparkSkin>

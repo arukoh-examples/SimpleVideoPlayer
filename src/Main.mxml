@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:media="tk.arukoh.media.*"
+			   creationComplete="onCreationComplete();">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			import mx.controls.Alert;
+			import tk.arukoh.media.SimpleVideoPlayerEvent;
+			
+			protected function onCreationComplete():void
+			{
+				player.addEventListener(SimpleVideoPlayerEvent.LOAD_START,
+					function():void
+					{
+					
+					}
+				);
+				player.addEventListener(SimpleVideoPlayerEvent.LOAD_COMPLETE,
+					function():void
+					{
+					
+					}
+				);
+				player.addEventListener(SimpleVideoPlayerEvent.ERROR,
+					function(event:SimpleVideoPlayerEvent):void
+					{
+						Alert.show(event.errorEvent.toString(), "Error");
+					}
+				);
+			}
+			
+			protected function onLoad(event:Event):void
+			{
+				if (sourceURL.text.length > 0)
+				{
+					player.load(sourceURL.text);
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Group width="100%" height="100%">
+		<s:HGroup width="{player.width}" x="{player.x}" y="{player.y - loadButton.height - 10 }" >
+			<s:TextInput id="sourceURL" toolTip="Video Source URL"
+				width="100%" height="{loadButton.height}"
+				left="0" top="0" />
+			<s:Button id="loadButton" label="Load"
+				right="0" top="0"
+				click="onLoad(event)" />
+		</s:HGroup>
+		
+		<media:SimpleVideoPlayer id="player" width="640" height="360"
+			x="{(width - player.width) / 2}" y="{(height - player.height) / 2}"
+			loop="true" autoPlay="true"
+			skinClass="tk.arukoh.skins.SimpleVideoPlayerSkin" />
+	</s:Group>
+</s:Application>
